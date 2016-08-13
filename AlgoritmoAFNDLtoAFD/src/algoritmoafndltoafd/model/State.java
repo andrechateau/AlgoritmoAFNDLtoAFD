@@ -19,6 +19,26 @@ public class State {
         this.isFinalState = isFinalState;
         this.isStartState = isStartState;
     }
-    
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @return the isFinalState
+     */
+    public boolean isIsFinalState() {
+        return isFinalState;
+    }
+
+    /**
+     * @return the isStartState
+     */
+    public boolean isIsStartState() {
+        return isStartState;
+    }
     
 }

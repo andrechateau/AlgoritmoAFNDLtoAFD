@@ -9,6 +9,6 @@ package algoritmoafndltoafd.model;
  *
  * @author Otavio
  */
-public class Trasition {
+public class Transition {
     
 }

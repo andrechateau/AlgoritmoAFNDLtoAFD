@@ -5,6 +5,11 @@
  */
 package algoritmoafndltoafd;
 
+import algoritmoafndltoafd.persistence.InputManager;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Andre Chateaubriand
@@ -15,7 +20,12 @@ public class AlgoritmoAFNDLtoAFD {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        InputManager im = new InputManager("entrada.txt");
+        try {
+            im.loadAutomaton();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(AlgoritmoAFNDLtoAFD.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
