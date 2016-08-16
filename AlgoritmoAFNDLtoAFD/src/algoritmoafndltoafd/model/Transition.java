@@ -5,10 +5,14 @@
  */
 package algoritmoafndltoafd.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Otavio
  */
 public class Transition {
-    
+    private State originState;
+    private String symbol;
+    private ArrayList<State> targetState;
 }
