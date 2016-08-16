@@ -9,6 +9,7 @@ import algoritmoafndltoafd.persistence.InputManager;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import algoritmoafndltoafd.model.interfaces.*;
 
 /**
  *
@@ -26,6 +27,7 @@ public class AlgoritmoAFNDLtoAFD {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AlgoritmoAFNDLtoAFD.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
-    
+
 }
