@@ -51,12 +51,24 @@ public class FiniteAutomaton {
         }
         return null;
     }
+    /**
+     * Add a state to the list of states
+     * @param state 
+     */
     public void addState(State state){
         states.add(state);
     }
-    public void addWord(String word){
-        inputAlphabet.add(word);
+    /**
+     * Add a symbol to input alphabet
+     * @param symbol 
+     */
+    public void addSymbol(String symbol){
+        inputAlphabet.add(symbol);
     }
+    /**
+     * Add a transition to the list of transitions
+     * @param transition 
+     */
     public void addTransition(Transition transition){
         transitions.add(transition);
     }
