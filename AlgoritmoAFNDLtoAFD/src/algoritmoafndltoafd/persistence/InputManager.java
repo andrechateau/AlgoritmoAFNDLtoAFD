@@ -6,6 +6,7 @@
 package algoritmoafndltoafd.persistence;
 
 import algoritmoafndltoafd.model.FiniteAutomaton;
+import algoritmoafndltoafd.model.FiniteAutomatonNotDeterministic;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -21,7 +22,7 @@ import java.util.logging.Logger;
 public class InputManager {
 
     private String fileName;
-
+    private int position;
     public InputManager(String fileName) {
         this.fileName = fileName;
     }
@@ -53,22 +54,21 @@ public class InputManager {
      * @return Return the finiteAutomaton of given file
      * @throws FileNotFoundException To informe the UI
      */
-    public FiniteAutomaton loadAutomaton() throws FileNotFoundException {
-        FiniteAutomaton finiteAutomaton = new FiniteAutomaton();
+    public FiniteAutomatonNotDeterministic loadAutomaton() throws FileNotFoundException {
+        FiniteAutomatonNotDeterministic finiteAutomaton = new FiniteAutomatonNotDeterministic();
         String linearArchive = loadString();
-        int position = 0;
-
+        position = 0;
+        
         return finiteAutomaton;
     }
 
     /**
-     * Catch everything between two symbols and separete by commas
+     * Catch everything between two symbols and separeted by commas
      *
      * @param linearArchive String that have the symbol
-     * @param position atual position in linearArchive
      * @return ArrayList with the objects found between the symbols
      */
-    public ArrayList<String> catchBetweenSymbol(String linearArchive, int position) {
+    public ArrayList<String> catchBetweenSymbol(String linearArchive) {
         ArrayList<String> obj = new ArrayList<>();
         while (linearArchive.indexOf(")") != linearArchive.charAt(position) || linearArchive.indexOf("}") != linearArchive.charAt(position)) {
             if (linearArchive.charAt(position) == '(' || linearArchive.charAt(position) == '{') {

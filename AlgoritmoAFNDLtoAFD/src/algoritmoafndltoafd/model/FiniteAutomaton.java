@@ -15,7 +15,6 @@ public class FiniteAutomaton {
 
     private ArrayList<State> states = new ArrayList<>();
     private ArrayList<String> inputAlphabet = new ArrayList<>();
-    private ArrayList<Transition> transitions = new ArrayList<>();
 
     public FiniteAutomaton() {
 
@@ -24,7 +23,6 @@ public class FiniteAutomaton {
     public FiniteAutomaton(ArrayList<State> states, ArrayList<String> inputAlphabet, ArrayList<Transition> transitions) {
         this.states = states;
         this.inputAlphabet = inputAlphabet;
-        this.transitions = transitions;
     }
     /**
      * get the list of final sates in finite automaton
@@ -64,13 +62,6 @@ public class FiniteAutomaton {
      */
     public void addSymbol(String symbol){
         inputAlphabet.add(symbol);
-    }
-    /**
-     * Add a transition to the list of transitions
-     * @param transition 
-     */
-    public void addTransition(Transition transition){
-        transitions.add(transition);
     }
 
 }

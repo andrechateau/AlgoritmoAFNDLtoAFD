@@ -14,5 +14,4 @@ import java.util.ArrayList;
 public class Transition {
     private State originState;
     private String symbol;
-    private ArrayList<State> targetState;
 }

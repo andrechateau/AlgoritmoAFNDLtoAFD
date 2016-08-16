@@ -5,8 +5,6 @@
  */
 package algoritmoafndltoafd.model.interfaces;
 
-import java.util.List;
-
 /**
  * This interface stands for the Delta Deterministic Table on the Powerset
  * Conversion context. It's the final table of this conversion.
