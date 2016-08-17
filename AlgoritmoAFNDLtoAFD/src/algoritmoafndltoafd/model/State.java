@@ -23,6 +23,11 @@ public class State {
         this.isStartState = isStartState;
         this.transitions = transitions;
     }
+    public State(String name, boolean isFinalState, boolean isStartState) {
+        this.name = name;
+        this.isFinalState = isFinalState;
+        this.isStartState = isStartState;
+    }
 
     /**
      * @return the name
