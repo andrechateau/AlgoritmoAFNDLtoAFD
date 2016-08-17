@@ -103,12 +103,12 @@ public class State implements Comparable<State> {
     }
 
     public List<String> getLambdaClosure() {
-
         List< String> closureString = new ArrayList<String>();
         for (State state : getLambdaClosureStates()) {
-            closureString.add(state.getName());
+            //if (!state.getName().equals(name)) {
+                closureString.add(state.getName());
+            //}
         }
-
         return closureString;
     }
 

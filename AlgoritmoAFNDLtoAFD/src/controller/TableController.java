@@ -8,11 +8,13 @@ package controller;
 import algoritmoafndltoafd.model.AFD;
 import algoritmoafndltoafd.model.AFND;
 import algoritmoafndltoafd.model.State;
-import algoritmoafndltoafd.model.interfaces.DeltaDTable;
 import algoritmoafndltoafd.model.interfaces.DeltaTable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  *
@@ -52,8 +54,33 @@ public final class TableController {
                 d.addTransition(state.getName(), symbol, l);
             }
         }
-
         return d;
+    }
+
+    public static NDTable removeL(NDLTable tbin) {
+        NDTable d = new NDTable();
+        d.addState(tbin.getStates());
+        d.addSymbols(tbin.getSymbols());
+        for (String state : tbin.getStates()) {
+            for (String symbol : tbin.getSymbols()) {
+                List<String> l = getConversionClosure(tbin, state, symbol);
+                d.addTransition(state, symbol, l);
+            }
+        }
+        return d;
+    }
+
+    private static List<String> getConversionClosure(NDLTable tbin, String state, String symbol) {
+        Set<String> set = new TreeSet<>();
+        List<String> preLambda = tbin.getLClosure(state);
+        for (String string : preLambda) {
+            set.addAll(tbin.getClosure(string, symbol));
+            for (String string1 : tbin.getClosure(string, symbol)) {
+                set.addAll(tbin.getLClosure(string1));
+            }
+
+        }
+        return new ArrayList<String>(set);
     }
 
     public static DeltaTable getNDLTable(AFND aflambda) {
@@ -85,17 +112,84 @@ public final class TableController {
         return list;
     }
 
-    /* private static List<String> getLambdaClosure(AFND afnd) {
-        throw new RuntimeException();
-    }*/
- /*private static List<String> getClosureWhithoutLambda(AFND afnd) {
-        List<String> list = new ArrayList<String>();
-        for (State state : afnd.getStates()) {
-            if (state) {
-                list.add(string);
+    public static DTable convertToAFD(NDTable tbin) {
+
+        DTable d = new DTable();
+        d.addSymbols(tbin.getSymbols());
+        //List<List<String>> states = new ArrayList<>();
+        HashMap<String, List<String>> map = new HashMap<>();
+        List<String> aux = new ArrayList<String>();
+        aux.add("q0");
+        d.addState(getEstado(aux));
+        map.put(getEstado(aux), aux);
+        ///
+        /* String q = "q0";
+        String a = "a";
+        List<String> la = tbin.getClosure(q, a);
+        System.out.println("(" + q + "-" + a + ") ->" + tbin.getClosure(q, a) + "    \t");*/
+ /* for (String state : tbin.getStates()) {
+            for (String symbol : tbin.getSymbols()) {
+                List<String> l = tbin.getClosure(state, symbol);
+                System.out.print("(" + state + "-" + symbol + ") ->" + tbin.getClosure(state, symbol) + "    \t");
+            }
+            System.out.println();
+        }*/
+        Table t = new Table();
+        for (String state : tbin.getStates()) {
+            for (String symbol : tbin.getSymbols()) {
+                List<String> l = tbin.getClosure(state, symbol);
+                Cell c = new Cell(symbol, state, l); //System.out.print("(" + state + "-" + symbol + ") ->" + tbin.getClosure(state, symbol) + "    \t");
+                t.addCell(c);
             }
         }
-        Collections.sort(list);
-        return list;
-    }*/
+        Table tabela = new Table();
+        while (map.size() > 0) {
+            for (String string : map.keySet()) {
+                aux = map.get(string);
+            }
+            for (String state : aux) {
+                if (!d.getStates().contains(getEstado(aux))) {
+                    d.addState(getEstado(aux));
+                }
+                for (String symbol : tbin.getSymbols()) {
+                    List<String> init = t.getList(state, symbol);
+                    if (init != null && init.size() > 0) {
+                        tabela.addCell(new Cell(symbol,getEstado(aux),init));
+                        d.addTransition(getEstado(aux), symbol, getEstado(init));
+                        //System.out.println(symbol+" - "+getEstado(init));
+                        if (!d.getStates().contains(getEstado(init))) {
+                            d.addState(getEstado(init));
+                        }
+                        map.put(getEstado(init), init);
+                    }
+                }
+                map.remove(getEstado(aux), aux);
+            }
+        }
+        d.setTable(tabela);
+        ///
+        /*for (String state : tbin.getStates()) {
+            for (String symbol : tbin.getSymbols()) {
+                // List<String> l = getConversionClosure(tbin, state, symbol);
+                d.addTransition(state, symbol, l);
+            }
+        }*/
+        return d;
+    }
+
+    private static String getEstado(List<String> strings) {
+
+        String r = "<";
+        if (strings != null) {
+            for (String string : strings) {
+                r += string + ",";
+            }
+            if (strings.size() >= 1) {
+                r = r.substring(0, r.length() - 1);
+            }
+
+        }
+        r += ">";
+        return r;
+    }
 }

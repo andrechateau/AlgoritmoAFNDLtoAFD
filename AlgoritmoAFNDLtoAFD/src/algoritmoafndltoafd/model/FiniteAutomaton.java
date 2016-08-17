@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Otavio
  */
 public abstract class FiniteAutomaton {
@@ -121,13 +120,17 @@ public abstract class FiniteAutomaton {
     /**
      * @return the inputAlphabet
      */
-
     public ArrayList<String> getInputAlphabet() {
         return inputAlphabet;
     }
 
     public DeltaTable getTable() {
         return dt;
+    }
+
+    @Override
+    public String toString() {
+        return "";
     }
 
 }
