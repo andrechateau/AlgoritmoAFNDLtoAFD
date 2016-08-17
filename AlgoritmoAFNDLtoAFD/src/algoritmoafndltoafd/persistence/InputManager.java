@@ -57,7 +57,6 @@ public class InputManager {
      * @throws FileNotFoundException To informe the UI
      */
     public AFND loadAutomaton() throws FileNotFoundException {
-        AFND afnd = new AFND();
         String linearFile = loadStringFromFile();
         AFND automatonFinite = new AFND();
         position = 1;
@@ -86,7 +85,10 @@ public class InputManager {
         for (State state : automatonFinite.getStates()) {
             System.out.println(state);
         }
-        return afnd;
+        for(String alph : automatonFinite.getInputAlphabet()){
+            System.out.println(alph);
+        }
+        return automatonFinite;
     }
 
     /**
