@@ -21,7 +21,7 @@ public class AFND extends FiniteAutomaton {
      * @param transition
      */
     public void addTransition(AFNDTransition transition) {
+        
         transitions.add(transition);
     }
-
 }

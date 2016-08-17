@@ -5,8 +5,9 @@
  */
 package algoritmoafndltoafd.persistence;
 
-import algoritmoafndltoafd.model.FiniteAutomaton;
 import algoritmoafndltoafd.model.AFND;
+import algoritmoafndltoafd.model.AFNDTransition;
+import algoritmoafndltoafd.model.State;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -23,6 +24,7 @@ public class InputManager {
 
     private String fileName;
     private int position;
+
     public InputManager(String fileName) {
         this.fileName = fileName;
     }
@@ -33,7 +35,7 @@ public class InputManager {
      * @return The String with all file
      * @throws FileNotFoundException To informe the UI
      */
-    private String loadString() throws FileNotFoundException {
+    private String loadStringFromFile() throws FileNotFoundException {
         String linearArchive = "";
         try {
             BufferedReader buffRead = new BufferedReader(new FileReader(fileName));
@@ -55,26 +57,63 @@ public class InputManager {
      * @throws FileNotFoundException To informe the UI
      */
     public AFND loadAutomaton() throws FileNotFoundException {
-        AFND finiteAutomaton = new AFND();
-        String linearArchive = loadString();
-        position = 0;
+        AFND afnd = new AFND();
+        String linearFile = loadStringFromFile();
+        position = 1;
+
+        System.out.println(linearFile);
+        ArrayList<String> statesString = catchBetweenSymbol(linearFile, "}");
+        position += 2;
+        ArrayList<String> alphaString = catchBetweenSymbol(linearFile, "}");
+        position += 3;
+        ArrayList<AFNDTransition> trasitions = catchAllTransition(linearFile);
         
-        return finiteAutomaton;
+        return afnd;
     }
 
     /**
      * Catch everything between two symbols and separeted by commas
      *
-     * @param linearArchive String that have the symbol
+     * @param linearFile String that have the symbol
+     * @param symbol
      * @return ArrayList with the objects found between the symbols
      */
-    public ArrayList<String> catchBetweenSymbol(String linearArchive) {
+    public ArrayList<String> catchBetweenSymbol(String linearFile, String symbol) {
         ArrayList<String> obj = new ArrayList<>();
-        while (linearArchive.indexOf(")") != linearArchive.charAt(position) || linearArchive.indexOf("}") != linearArchive.charAt(position)) {
-            if (linearArchive.charAt(position) == '(' || linearArchive.charAt(position) == '{') {
-                
+        while (linearFile.indexOf(symbol, position) != position) {
+            position++;
+
+            if (linearFile.indexOf(",", position) >= 0 && linearFile.indexOf(",", position) < linearFile.indexOf(symbol, position)) {
+                obj.add(linearFile.substring(position, linearFile.indexOf(",", position)));
+                position = linearFile.indexOf(",", position);
+            } else {
+                obj.add(linearFile.substring(position, linearFile.indexOf(symbol, position)));
+                position = linearFile.indexOf(symbol, position);
             }
+
         }
         return obj;
+    }
+    /**
+     * 
+     * @param linearFile
+     * @return 
+     */
+    public ArrayList<AFNDTransition> catchAllTransition(String linearFile) {
+        int internPosition = 0;
+        ArrayList<AFNDTransition> transitions = new ArrayList<>();
+        while (linearFile.indexOf("}", position) != position) {
+            AFNDTransition transition = new AFNDTransition();
+            ArrayList<String> origem = catchBetweenSymbol(linearFile, ")");
+            position += 3;
+            ArrayList<String> destino = catchBetweenSymbol(linearFile, "}");
+//            transition.addState();
+            if (linearFile.charAt(position + 2) == '(') {
+                position += 2;
+            } else if (linearFile.charAt(position + 1) == '}') {
+                position += 1;
+            }
+        }
+        return transitions;
     }
 }

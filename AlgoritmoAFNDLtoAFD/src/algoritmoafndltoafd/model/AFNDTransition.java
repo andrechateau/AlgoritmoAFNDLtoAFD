@@ -16,5 +16,16 @@ import java.util.ArrayList;
  */
 public class AFNDTransition extends Transition{
     private ArrayList<State> targetStates;
+
+    public AFNDTransition(ArrayList<State> targetStates) {
+        this.targetStates = targetStates;
+    }
+
+    public AFNDTransition() {
     
+    }
+    
+    public void addState(State state){
+        targetStates.add(state);
+    }
 }

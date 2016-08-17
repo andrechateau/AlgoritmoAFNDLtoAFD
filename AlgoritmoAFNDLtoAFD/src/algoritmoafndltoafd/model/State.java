@@ -5,6 +5,8 @@
  */
 package algoritmoafndltoafd.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Otavio
@@ -13,11 +15,13 @@ public class State {
     private String name;
     private boolean isFinalState;
     private boolean isStartState;
-
-    public State(String name, boolean isFinalState, boolean isStartState) {
+    private ArrayList<Transition> transitions;
+    
+    public State(String name, boolean isFinalState, boolean isStartState,ArrayList<Transition> transitions) {
         this.name = name;
         this.isFinalState = isFinalState;
         this.isStartState = isStartState;
+        this.transitions = transitions;
     }
 
     /**
@@ -39,6 +43,13 @@ public class State {
      */
     public boolean isIsStartState() {
         return isStartState;
+    }
+
+    /**
+     * @return the transitions
+     */
+    public ArrayList<Transition> getTransitions() {
+        return transitions;
     }
     
 }

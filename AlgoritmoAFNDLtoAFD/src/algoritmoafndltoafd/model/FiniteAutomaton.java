@@ -5,7 +5,6 @@
  */
 package algoritmoafndltoafd.model;
 
-import algoritmoafndltoafd.model.interfaces.DeltaDTable;
 import algoritmoafndltoafd.model.interfaces.DeltaTable;
 import java.util.ArrayList;
 
