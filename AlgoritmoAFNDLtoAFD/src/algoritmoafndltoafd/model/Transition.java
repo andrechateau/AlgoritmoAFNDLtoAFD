@@ -16,4 +16,17 @@ public abstract class Transition {
     private State originState;
     private String symbol;
 
+    /**
+     * @return the originState
+     */
+    public State getOriginState() {
+        return originState;
+    }
+
+    /**
+     * @return the symbol
+     */
+    public String getSymbol() {
+        return symbol;
+    }
 }

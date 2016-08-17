@@ -59,15 +59,22 @@ public class InputManager {
     public AFND loadAutomaton() throws FileNotFoundException {
         AFND afnd = new AFND();
         String linearFile = loadStringFromFile();
+        AFND automatonFinite = new AFND();
         position = 1;
 
         System.out.println(linearFile);
         ArrayList<String> statesString = catchBetweenSymbol(linearFile, "}");
+        for (String stateString : statesString) {
+            automatonFinite.addState(new State(stateString, false, false));
+        }
         position += 2;
         ArrayList<String> alphaString = catchBetweenSymbol(linearFile, "}");
+        for (String aplha : alphaString) {
+            automatonFinite.addSymbol(aplha);
+        }
         position += 3;
-        ArrayList<AFNDTransition> trasitions = catchAllTransition(linearFile);
-        
+        catchAllTransition(linearFile,automatonFinite);
+
         return afnd;
     }
 
@@ -94,14 +101,13 @@ public class InputManager {
         }
         return obj;
     }
+
     /**
-     * 
+     *
      * @param linearFile
-     * @return 
+     * @param automatonFinite
      */
-    public ArrayList<AFNDTransition> catchAllTransition(String linearFile) {
-        int internPosition = 0;
-        ArrayList<AFNDTransition> transitions = new ArrayList<>();
+    public void catchAllTransition(String linearFile,AFND automatonFinite) {
         while (linearFile.indexOf("}", position) != position) {
             AFNDTransition transition = new AFNDTransition();
             ArrayList<String> origem = catchBetweenSymbol(linearFile, ")");
@@ -114,6 +120,5 @@ public class InputManager {
                 position += 1;
             }
         }
-        return transitions;
     }
 }

@@ -15,13 +15,16 @@ public class AFND extends FiniteAutomaton {
 
     private ArrayList<AFNDTransition> transitions;
 
+    public AFND() {
+
+    }
+
     /**
      * Add a transition to the list of transitions
      *
      * @param transition
      */
     public void addTransition(AFNDTransition transition) {
-        
         transitions.add(transition);
     }
 }
