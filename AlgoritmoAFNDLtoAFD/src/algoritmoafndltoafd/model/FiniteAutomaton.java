@@ -14,7 +14,7 @@ import java.util.List;
  * @author Otavio
  */
 public abstract class FiniteAutomaton {
-    
+
     private DeltaTable dt;
     private ArrayList<State> states = new ArrayList<>();
     private ArrayList<String> inputAlphabet = new ArrayList<>();
@@ -92,6 +92,7 @@ public abstract class FiniteAutomaton {
         return null;
     }
 
+    @Deprecated
     public void changeState(String name, boolean isFinal, boolean isStart) {
         for (State state : states) {
             if (state.getName().equals(name)) {
@@ -101,9 +102,26 @@ public abstract class FiniteAutomaton {
         }
     }
 
+    public void changeFinalState(String name, boolean isFinal) {
+        for (State state : states) {
+            if (state.getName().equals(name)) {
+                state.setIsFinalState(isFinal);
+            }
+        }
+    }
+
+    public void changeStartState(String name, boolean isStart) {
+        for (State state : states) {
+            if (state.getName().equals(name)) {
+                state.setIsStartState(isStart);
+            }
+        }
+    }
+
     /**
      * @return the inputAlphabet
      */
+
     public ArrayList<String> getInputAlphabet() {
         return inputAlphabet;
     }
@@ -111,5 +129,5 @@ public abstract class FiniteAutomaton {
     public DeltaTable getTable() {
         return dt;
     }
-    
+
 }

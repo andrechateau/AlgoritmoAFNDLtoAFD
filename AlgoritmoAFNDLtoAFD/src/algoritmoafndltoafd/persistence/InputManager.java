@@ -75,8 +75,17 @@ public class InputManager {
         position += 3;
         catchAllTransition(linearFile, automatonFinite);
         position += 2;
-        String startState = linearFile.substring(position, linearFile.indexOf(",",position));
-        automatonFinite.changeState(startState, false, true);
+        String startStateString = linearFile.substring(position, linearFile.indexOf(",", position));
+        position = linearFile.indexOf(",", position);
+        automatonFinite.changeStartState(startStateString, true);
+        position += 1;
+        ArrayList<String> finalStatesString = catchBetweenSymbol(linearFile, "}");
+        for (String finalStateString : finalStatesString) {
+            automatonFinite.changeFinalState(finalStateString, true);
+        }
+        for (State state : automatonFinite.getStates()) {
+            System.out.println(state);
+        }
         return afnd;
     }
 
