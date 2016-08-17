@@ -61,15 +61,15 @@ public final class TableController {
         NDLTable d = new NDLTable();
         d.addState(getStringClosure(aflambda.getStates()));
         d.addSymbols(aflambda.getInputAlphabet());
-        System.out.println("->States: " + getStringClosure(aflambda.getStates()).toString());
-        System.out.println("->Alphabet: " + aflambda.getInputAlphabet().toString());
-
         for (State state : aflambda.getStates()) {
             for (String symbol : aflambda.getInputAlphabet()) {
-                List<String> l = getClosureWhithoutLambda(aflambda);
-                d.addTransition(state.getName(), symbol, l);
+                if (!symbol.equals(".")) {
+                    List<String> l = state.getStringClosure(symbol);
+                    d.addTransition(state.getName(), symbol, l);
+                }
             }
         }
+
         for (State state : aflambda.getStates()) {
             d.addLambdaClosure(state.getName(), state.getLambdaClosure());
         }
@@ -88,12 +88,14 @@ public final class TableController {
     /* private static List<String> getLambdaClosure(AFND afnd) {
         throw new RuntimeException();
     }*/
-    private static List<String> getClosureWhithoutLambda(AFND afnd) {
+ /*private static List<String> getClosureWhithoutLambda(AFND afnd) {
         List<String> list = new ArrayList<String>();
-        for (String string : list) {
-            list.add(string);
+        for (State state : afnd.getStates()) {
+            if (state) {
+                list.add(string);
+            }
         }
         Collections.sort(list);
         return list;
-    }
+    }*/
 }

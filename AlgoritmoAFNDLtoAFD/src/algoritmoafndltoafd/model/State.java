@@ -37,7 +37,7 @@ public class State implements Comparable<State> {
         this.isStartState = isStartState;
         this.transitions = new ArrayList<>();
     }
-    
+
     /**
      * @return the name
      */
@@ -65,12 +65,15 @@ public class State implements Comparable<State> {
     public ArrayList<Transition> getTransitions() {
         return transitions;
     }
-    public void setIsStartState(boolean newValue){
+
+    public void setIsStartState(boolean newValue) {
         isStartState = newValue;
     }
-    public void setIsFinalState(boolean newValue){
+
+    public void setIsFinalState(boolean newValue) {
         isFinalState = newValue;
     }
+
     public Set<State> getClosure(String symbol) {
         Set<State> closure = new TreeSet<>();
         for (Transition transition : transitions) {
@@ -100,31 +103,40 @@ public class State implements Comparable<State> {
     }
 
     public List<String> getLambdaClosure() {
+
+        List< String> closureString = new ArrayList<String>();
+        for (State state : getLambdaClosureStates()) {
+            closureString.add(state.getName());
+        }
+
+        return closureString;
+    }
+
+    private Set<State> getLambdaClosureStates() {
         Set<State> closure = new TreeSet<>();
+        closure.add(this);
         for (Transition transition : transitions) {
             if (transition instanceof AFNDTransition) {
                 AFNDTransition t = (AFNDTransition) transition;
                 if (t.getSymbol().equals(".")) {
                     closure.addAll(t.getTargetStates());
-                }
-            } else if (transition instanceof AFDTransition) {
-                AFDTransition t = (AFDTransition) transition;
-                if (t.getSymbol().equals(".")) {
-                    closure.add(t.getTargetState());
+                    for (State targetState : t.getTargetStates()) {
+                        closure.addAll(targetState.getLambdaClosureStates());
+                    }
                 }
             }
         }
-        List<String> closureString = new ArrayList<String>();
+        /*List<String> closureString = new ArrayList<String>();
         for (State state : closure) {
             closureString.add(state.getName());
-        }
-        return closureString;
+        }*/
+        return closure;
     }
-    
-    public void addTransition(Transition transition){
+
+    public void addTransition(Transition transition) {
         transitions.add(transition);
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -151,15 +163,14 @@ public class State implements Comparable<State> {
     public String toString() {
         String transitionString = "";
         for (Transition transition : transitions) {
-            transitionString += transition.toString()+"\n";
+            transitionString += transition.toString() + "\n";
         }
-        return "Nome: " + getName()+"\n"+
-                "É final: " + (isFinalState? "Sim":"Não")+"\n"+
-                "É inicial: " + (isStartState? "Sim":"Não")+"\n"+
-                "Transições: \n"+
-                transitionString;
-                
-                
+        return "Nome: " + getName() + "\n"
+                + "É final: " + (isFinalState ? "Sim" : "Não") + "\n"
+                + "É inicial: " + (isStartState ? "Sim" : "Não") + "\n"
+                + "Transições: \n"
+                + transitionString;
+
     }
-    
+
 }

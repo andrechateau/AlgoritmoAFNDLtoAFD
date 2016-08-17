@@ -43,14 +43,14 @@ public class NDLTable extends NDTable implements DeltaNDLTable {
     @Override
     public String toString() {
         String r = "";
-        r+="Simbolos iniciais: "+getSymbols().toString()+"\n";
-        r+="Estados: "+getStates().toString()+"\n";
+        r += "Simbolos iniciais: " + getSymbols().toString() + "\n";
+        r += "Estados: " + getStates().toString() + "\n";
         r += "==============================================\n";
         List<String> states = getStates();
         ///HEAD
         r += "\t";
         for (String symbol : getSymbols()) {
-            r += symbol + "\t";
+            r += symbol + "\t\t\t";
         }
 
         r += "lambda\n";
@@ -59,9 +59,10 @@ public class NDLTable extends NDTable implements DeltaNDLTable {
         for (String state : states) {
             r += state + "\t";
             for (String symbol : getSymbols()) {
-                r += getConjunto(getClosure(state, symbol)) + "\t";
+                r += getConjunto(getClosure(state, symbol)) + "\t\t\t";
+                //r += (getClosure(state, symbol)!=null ? getClosure(state, symbol).toString() : "") + "\t";
             }
-            r += getConjunto(getLClosure(state));
+             r += getConjunto(getLClosure(state));
             r += "\n";
         }
         r += "==============================================\n";
@@ -71,11 +72,18 @@ public class NDLTable extends NDTable implements DeltaNDLTable {
     }
 
     private String getConjunto(List<String> strings) {
+
         String r = "{";
-        for (String string : strings) {
-            r += string + ",";
+        if (strings != null) {
+            for (String string : strings) {
+                r += string + ",";
+            }
+            if (strings.size() >= 1) {
+                r = r.substring(0, r.length() - 1);
+            }
+
         }
-        r = r.substring(0, r.length()) + "}";
+        r += "}";
         return r;
     }
 

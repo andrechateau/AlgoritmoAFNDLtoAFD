@@ -36,7 +36,8 @@ public class AFND extends FiniteAutomaton {
             setTable(TableController.getNDTable(this));
         }
         if (type == Type.TYPE_LAMBDATRANSITION) {
-            setTable(TableController.getNDLTable(this));
+            DeltaTable dt = TableController.getNDLTable(this);
+            setTable(dt);
         }
 
     }

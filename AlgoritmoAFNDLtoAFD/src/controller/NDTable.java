@@ -25,7 +25,7 @@ public class NDTable extends AFTable implements DeltaNDTable {
 
     @Override
     public List<String> getClosure(String state, String symbol) {
-        return closure.get(state);
+        return closure.get(new KeyPair(state, symbol));
 
     }
 

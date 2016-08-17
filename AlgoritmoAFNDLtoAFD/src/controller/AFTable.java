@@ -34,20 +34,20 @@ class AFTable implements DeltaTable {
     }
 
     public void addState(String state) {
-        states.add(state);
+        this.states.add(state);
     }
 
     public void addState(List<String> states) {
-        states.addAll(states);
+        this.states.addAll(states);
     }
 
     public void addSymbols(String symbol) {
-        states.add(symbol);
+        this.symbols.add(symbol);
     }
 
     public void addSymbols(List<String> symbols) {
-        states.addAll(symbols);
-    }
+        this.symbols.addAll(symbols);
 
+    }
 
 }
