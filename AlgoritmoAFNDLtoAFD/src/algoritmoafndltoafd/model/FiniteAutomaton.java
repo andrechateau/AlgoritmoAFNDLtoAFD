@@ -76,11 +76,7 @@ public abstract class FiniteAutomaton {
     }
 
     public void setTable(DeltaTable dt) {
-
-    }
-
-    public DeltaTable getTable() {
-        return dt;
+        this.dt = dt;
     }
 
     public List<State> getStates() {
@@ -95,24 +91,43 @@ public abstract class FiniteAutomaton {
         }
         return null;
     }
-    public void changeFinalState(String name, boolean isFinal){
+
+    @Deprecated
+    public void changeState(String name, boolean isFinal, boolean isStart) {
         for (State state : states) {
-            if(state.getName().equals(name)){
+            if (state.getName().equals(name)) {
+                state.setIsStartState(isStart);
                 state.setIsFinalState(isFinal);
             }
         }
     }
-    public void changeStartState(String name, boolean isStart){
+
+    public void changeFinalState(String name, boolean isFinal) {
         for (State state : states) {
-            if(state.getName().equals(name)){
+            if (state.getName().equals(name)) {
+                state.setIsFinalState(isFinal);
+            }
+        }
+    }
+
+    public void changeStartState(String name, boolean isStart) {
+        for (State state : states) {
+            if (state.getName().equals(name)) {
                 state.setIsStartState(isStart);
             }
         }
     }
+
     /**
      * @return the inputAlphabet
      */
+
     public ArrayList<String> getInputAlphabet() {
         return inputAlphabet;
     }
+
+    public DeltaTable getTable() {
+        return dt;
+    }
+
 }

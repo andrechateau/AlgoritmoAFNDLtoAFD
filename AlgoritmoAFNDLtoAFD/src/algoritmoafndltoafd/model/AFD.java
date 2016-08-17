@@ -5,6 +5,8 @@
  */
 package algoritmoafndltoafd.model;
 
+import algoritmoafndltoafd.model.interfaces.DeltaTable;
+import controller.TableController;
 import java.util.ArrayList;
 
 /**
@@ -24,6 +26,11 @@ public class AFD extends FiniteAutomaton {
         transitions.add(transition);
     }
 
-
-
+    @Override
+    public DeltaTable getTable() {
+        if (super.getTable() == null) {
+            setTable(TableController.getDTable(this));
+        }
+        return super.getTable();
+    }
 }
