@@ -24,14 +24,13 @@ class AFTable implements DeltaTable {
     }
 
     @Override
-
     public List<String> getStates() {
-        return getStates();
+        return states;
     }
 
     @Override
     public List<String> getSymbols() {
-        return getSymbols();
+        return symbols;
     }
 
     public void addState(String state) {
@@ -49,4 +48,6 @@ class AFTable implements DeltaTable {
     public void addSymbols(List<String> symbols) {
         states.addAll(symbols);
     }
+
+
 }

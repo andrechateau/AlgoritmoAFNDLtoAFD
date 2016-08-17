@@ -41,6 +41,8 @@ public final class TableController {
     }
 
     public static DeltaTable getNDTable(AFND afnd) {
+        System.out.println("Non Deterministic");
+
         NDTable d = new NDTable();
         d.addState(getStringClosure(afnd.getStates()));
         d.addSymbols(afnd.getInputAlphabet());
@@ -55,9 +57,13 @@ public final class TableController {
     }
 
     public static DeltaTable getNDLTable(AFND aflambda) {
+        System.out.println("Lambda");
         NDLTable d = new NDLTable();
         d.addState(getStringClosure(aflambda.getStates()));
         d.addSymbols(aflambda.getInputAlphabet());
+        System.out.println("->States: "+getStringClosure(aflambda.getStates()).toString());
+        System.out.println("->Alphabet: "+aflambda.getInputAlphabet().toString());
+
         for (State state : aflambda.getStates()) {
             for (String symbol : aflambda.getInputAlphabet()) {
                 List<String> l = getClosureWhithoutLambda(aflambda);
