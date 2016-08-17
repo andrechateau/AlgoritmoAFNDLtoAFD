@@ -5,6 +5,7 @@
  */
 package controller;
 
+import algoritmoafndltoafd.model.State;
 import algoritmoafndltoafd.model.interfaces.DeltaNDLTable;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -37,6 +38,45 @@ public class NDLTable extends NDTable implements DeltaNDLTable {
             lambdaClosure.put(keyState, new LinkedList<String>());
         }
         lambdaClosure.get(keyState).add(outState);
+    }
+
+    @Override
+    public String toString() {
+        String r = "";
+        r+="Simbolos iniciais: "+getSymbols().toString()+"\n";
+        r+="Estados: "+getStates().toString()+"\n";
+        r += "==============================================\n";
+        List<String> states = getStates();
+        ///HEAD
+        r += "\t";
+        for (String symbol : getSymbols()) {
+            r += symbol + "\t";
+        }
+
+        r += "lambda\n";
+
+        /// LINHA
+        for (String state : states) {
+            r += state + "\t";
+            for (String symbol : getSymbols()) {
+                r += getConjunto(getClosure(state, symbol)) + "\t";
+            }
+            r += getConjunto(getLClosure(state));
+            r += "\n";
+        }
+        r += "==============================================\n";
+
+        ////
+        return r;
+    }
+
+    private String getConjunto(List<String> strings) {
+        String r = "{";
+        for (String string : strings) {
+            r += string + ",";
+        }
+        r = r.substring(0, r.length()) + "}";
+        return r;
     }
 
 }

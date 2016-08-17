@@ -31,6 +31,7 @@ public class AFND extends FiniteAutomaton {
     }
 
     public void generateTable(Type type) {
+        System.out.print("generating...");
         if (type == Type.TYPE_NONDETERMINISTIC) {
             setTable(TableController.getNDTable(this));
         }
@@ -49,7 +50,7 @@ public class AFND extends FiniteAutomaton {
         }
     }
 
-    private enum Type {
+    public enum Type {
         TYPE_NONDETERMINISTIC, TYPE_LAMBDATRANSITION;
     }
 }
