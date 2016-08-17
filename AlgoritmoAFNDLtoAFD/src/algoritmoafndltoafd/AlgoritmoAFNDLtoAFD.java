@@ -7,6 +7,7 @@ package algoritmoafndltoafd;
 
 import algoritmoafndltoafd.model.AFND;
 import algoritmoafndltoafd.persistence.InputManager;
+import controller.DTable;
 import controller.NDLTable;
 import controller.NDTable;
 import controller.TableController;
@@ -32,7 +33,9 @@ public class AlgoritmoAFNDLtoAFD {
             /////
             NDTable tb = TableController.removeL((NDLTable) auto.getTable());
             System.out.println(tb);
-
+            ///
+            DTable d = TableController.convertToAFD(tb);
+            System.out.println(d);
             //tb.addState(auto.getStates());
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AlgoritmoAFNDLtoAFD.class.getName()).log(Level.SEVERE, null, ex);
