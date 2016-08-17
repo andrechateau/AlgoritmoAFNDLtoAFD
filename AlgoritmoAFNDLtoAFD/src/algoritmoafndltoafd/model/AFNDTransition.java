@@ -9,26 +9,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *  This class represents a transition of Finite automaton not deterministic. 
- *  The diference between this class and FADTransition is the number of target state
- *  this class has a list of target states, the other just use one target state
- *  
+ * This class represents a transition of Finite automaton not deterministic. The
+ * diference between this class and FADTransition is the number of target state
+ * this class has a list of target states, the other just use one target state
+ *
  * @author Otavio
  */
-public class AFNDTransition extends Transition{
+public class AFNDTransition extends Transition {
+
     private ArrayList<State> targetStates;
-    public AFNDTransition(){
+
+    public AFNDTransition() {
         targetStates = new ArrayList<>();
     }
+
     public AFNDTransition(ArrayList<State> targetStates) {
         this.targetStates = targetStates;
     }
-    
-    public void addTargetState(State state){
+
+    public void addTargetState(State state) {
         targetStates.add(state);
     }
-    
-    public List<State> getTargetStates(){
+
+    public List<State> getTargetStates() {
         return targetStates;
     }
+
+    @Override
+    public String toString() {
+        String targetStateString = "{";
+        boolean entrou = false;
+        for (State targetState : targetStates) {
+            if (!entrou) {
+                targetStateString += targetState.getName();
+                entrou = true;
+            } else {
+                targetStateString += "," + targetState.getName();
+            }
+        }
+        targetStateString += "}";
+        return super.toString() + targetStateString;
+    }
+
 }

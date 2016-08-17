@@ -33,5 +33,10 @@ public abstract class Transition {
     public String getSymbol() {
         return symbol;
     }
+
+    @Override
+    public String toString() {
+        return "("+originState.getName()+","+symbol+")->";
+    }
     
 }
