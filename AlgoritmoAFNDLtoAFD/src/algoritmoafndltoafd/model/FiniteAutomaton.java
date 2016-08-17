@@ -7,6 +7,7 @@ package algoritmoafndltoafd.model;
 
 import algoritmoafndltoafd.model.interfaces.DeltaTable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -80,6 +81,10 @@ public abstract class FiniteAutomaton {
 
     public DeltaTable getTable() {
         return dt;
+    }
+
+    public List<State> getStates() {
+        return states;
     }
 
 }

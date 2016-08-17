@@ -6,6 +6,7 @@
 package algoritmoafndltoafd.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *  This class represents a transition of Finite automaton not deterministic. 
@@ -27,5 +28,9 @@ public class AFNDTransition extends Transition{
     
     public void addState(State state){
         targetStates.add(state);
+    }
+    
+    public List<State> getTargetStates(){
+        return targetStates;
     }
 }

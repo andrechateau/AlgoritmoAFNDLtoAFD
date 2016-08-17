@@ -11,7 +11,9 @@ import java.util.ArrayList;
  *
  * @author Otavio
  */
-public class Transition {
+public abstract class Transition {
+
     private State originState;
     private String symbol;
+
 }

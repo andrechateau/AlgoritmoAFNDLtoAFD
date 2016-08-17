@@ -10,6 +10,7 @@ package algoritmoafndltoafd.model;
  * @author Otavio
  */
 public class AFDTransition extends Transition {
+
     private State targetState;
 
     /**
@@ -25,6 +26,5 @@ public class AFDTransition extends Transition {
     public void setTargetState(State targetState) {
         this.targetState = targetState;
     }
-    
-    
+
 }
