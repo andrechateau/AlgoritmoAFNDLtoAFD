@@ -19,7 +19,7 @@ import java.util.TreeSet;
  */
 public class State implements Comparable<State> {
 
-    private String name;
+    private final String name;
     private boolean isFinalState;
     private boolean isStartState;
     private ArrayList<Transition> transitions;
@@ -114,6 +114,15 @@ public class State implements Comparable<State> {
     @Override
     public int compareTo(State o) {
         return this.name.compareTo(o.getName());
+    }
+
+    @Override
+    public String toString() {
+        return "Nome: " + getName()+"\n"+
+                "É final: " + (isFinalState? "Sim":"Não")+"\n"+
+                "É inicial: " + (isStartState? "Sim":"Não")+"\n";
+                
+                
     }
 
 }

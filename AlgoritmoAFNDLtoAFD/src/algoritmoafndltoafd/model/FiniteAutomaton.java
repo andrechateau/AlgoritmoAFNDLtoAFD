@@ -95,11 +95,17 @@ public abstract class FiniteAutomaton {
         }
         return null;
     }
-    public void changeState(String name, boolean isFinal, boolean isStart){
+    public void changeFinalState(String name, boolean isFinal){
+        for (State state : states) {
+            if(state.getName().equals(name)){
+                state.setIsFinalState(isFinal);
+            }
+        }
+    }
+    public void changeStartState(String name, boolean isStart){
         for (State state : states) {
             if(state.getName().equals(name)){
                 state.setIsStartState(isStart);
-                state.setIsFinalState(isFinal);
             }
         }
     }
