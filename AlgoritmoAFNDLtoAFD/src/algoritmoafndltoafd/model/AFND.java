@@ -5,6 +5,8 @@
  */
 package algoritmoafndltoafd.model;
 
+import algoritmoafndltoafd.model.interfaces.DeltaTable;
+import controller.TableController;
 import java.util.ArrayList;
 
 /**
@@ -26,5 +28,28 @@ public class AFND extends FiniteAutomaton {
      */
     public void addTransition(AFNDTransition transition) {
         transitions.add(transition);
+    }
+
+    public void generateTable(Type type) {
+        if (type == Type.TYPE_NONDETERMINISTIC) {
+            setTable(TableController.getNDTable(this));
+        }
+        if (type == Type.TYPE_LAMBDATRANSITION) {
+            setTable(TableController.getNDLTable(this));
+        }
+
+    }
+
+    @Override
+    public DeltaTable getTable() {
+        if (super.getTable() != null) {
+            return super.getTable();
+        } else {
+            throw new RuntimeException("Gere a tabela antes mano, na moral.");
+        }
+    }
+
+    private enum Type {
+        TYPE_NONDETERMINISTIC, TYPE_LAMBDATRANSITION;
     }
 }
