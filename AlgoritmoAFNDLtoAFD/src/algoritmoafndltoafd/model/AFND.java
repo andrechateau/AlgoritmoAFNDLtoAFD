@@ -16,7 +16,7 @@ public class AFND extends FiniteAutomaton {
     private ArrayList<AFNDTransition> transitions;
 
     public AFND() {
-
+        transitions = new ArrayList<>();
     }
 
     /**

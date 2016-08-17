@@ -74,7 +74,9 @@ public class InputManager {
         }
         position += 3;
         catchAllTransition(linearFile, automatonFinite);
-
+        position += 2;
+        String startState = linearFile.substring(position, linearFile.indexOf(",",position));
+        automatonFinite.changeState(startState, false, true);
         return afnd;
     }
 
@@ -113,14 +115,14 @@ public class InputManager {
             ArrayList<String> origens = catchBetweenSymbol(linearFile, ")");
             position += 3;
             ArrayList<String> destinos = catchBetweenSymbol(linearFile, "}");
-            
+
             for (String destino : destinos) {
                 transition.addTargetState(automatonFinite.getState(destino));
             }
             transition.setOriginState(automatonFinite.getState(origens.get(0)));
             transition.setSybol(origens.get(1));
             automatonFinite.addTransition(transition);
-            
+
             if (linearFile.charAt(position + 2) == '(') {
                 position += 2;
             } else if (linearFile.charAt(position + 1) == '}') {

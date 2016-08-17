@@ -36,7 +36,7 @@ public abstract class FiniteAutomaton {
     public ArrayList<State> getSetOfFinalStates() {
         ArrayList<State> setOfFinalStates = new ArrayList<>();
         for (State state : states) {
-            if (state.isIsFinalState()) {
+            if (state.isFinalState()) {
                 setOfFinalStates.add(state);
             }
         }
@@ -50,7 +50,7 @@ public abstract class FiniteAutomaton {
      */
     public State getStartState() {
         for (State state : states) {
-            if (state.isIsStartState()) {
+            if (state.isStartState()) {
                 return state;
             }
         }
@@ -86,20 +86,27 @@ public abstract class FiniteAutomaton {
     public List<State> getStates() {
         return states;
     }
-    public State getState(String stateString){
+
+    public State getState(String stateString) {
         for (State state : states) {
-            if(state.getName().equals(stateString)){
+            if (state.getName().equals(stateString)) {
                 return state;
             }
         }
         return null;
     }
-
+    public void changeState(String name, boolean isFinal, boolean isStart){
+        for (State state : states) {
+            if(state.getName().equals(name)){
+                state.setIsStartState(isStart);
+                state.setIsFinalState(isFinal);
+            }
+        }
+    }
     /**
      * @return the inputAlphabet
      */
     public ArrayList<String> getInputAlphabet() {
         return inputAlphabet;
     }
-
 }
