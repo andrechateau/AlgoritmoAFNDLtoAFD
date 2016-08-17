@@ -6,7 +6,7 @@
 package algoritmoafndltoafd.persistence;
 
 import algoritmoafndltoafd.model.FiniteAutomaton;
-import algoritmoafndltoafd.model.FiniteAutomatonNotDeterministic;
+import algoritmoafndltoafd.model.AFND;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -54,8 +54,8 @@ public class InputManager {
      * @return Return the finiteAutomaton of given file
      * @throws FileNotFoundException To informe the UI
      */
-    public FiniteAutomatonNotDeterministic loadAutomaton() throws FileNotFoundException {
-        FiniteAutomatonNotDeterministic finiteAutomaton = new FiniteAutomatonNotDeterministic();
+    public AFND loadAutomaton() throws FileNotFoundException {
+        AFND finiteAutomaton = new AFND();
         String linearArchive = loadString();
         position = 0;
         

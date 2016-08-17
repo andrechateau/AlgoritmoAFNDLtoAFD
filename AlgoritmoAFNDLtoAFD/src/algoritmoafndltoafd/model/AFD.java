@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Otavio
  */
-public class FiniteAutomatonDeterministic extends FiniteAutomaton{
+public class AFD extends FiniteAutomaton{
     private ArrayList<AFNDTransition> transitions;
     
     /**
