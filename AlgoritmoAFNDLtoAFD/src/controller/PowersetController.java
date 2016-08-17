@@ -17,13 +17,11 @@ public class PowersetController {
 
     }
 
-    public class PowersetConversion {
+    public AFND removeLambda(AFND AFlamda) {
 
-        public AFND removeLambda(AFND AFlamda) {
-            
-            return null;
-        }
+        return null;
     }
+
 
     public static PowersetController getInstance() {
         return PowersetControllerHolder.INSTANCE;

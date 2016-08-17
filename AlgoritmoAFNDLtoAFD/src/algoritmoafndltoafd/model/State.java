@@ -6,6 +6,10 @@
 package algoritmoafndltoafd.model;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -26,6 +30,7 @@ public class State implements Comparable<State> {
         this.isStartState = isStartState;
         this.transitions = transitions;
     }
+
     public State(String name, boolean isFinalState, boolean isStartState) {
         this.name = name;
         this.isFinalState = isFinalState;
@@ -77,6 +82,16 @@ public class State implements Comparable<State> {
             }
         }
         return closure;
+    }
+
+    public List<String> getStringClosure(String symbol) {
+
+        Set<State> closure = getClosure(symbol);
+        List<String> closureString = new ArrayList<String>();
+        for (State state : closure) {
+            closureString.add(state.getName());
+        }
+        return closureString;
     }
 
     @Override

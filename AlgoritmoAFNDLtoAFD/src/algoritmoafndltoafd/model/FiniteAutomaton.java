@@ -72,7 +72,7 @@ public abstract class FiniteAutomaton {
      * @param symbol
      */
     public void addSymbol(String symbol) {
-        inputAlphabet.add(symbol);
+        getInputAlphabet().add(symbol);
     }
 
     public void setTable(DeltaTable dt) {
@@ -102,5 +102,11 @@ public abstract class FiniteAutomaton {
                 state.setIsFinalState(isFinal);
             }
         }
+    }
+    /**
+     * @return the inputAlphabet
+     */
+    public ArrayList<String> getInputAlphabet() {
+        return inputAlphabet;
     }
 }
