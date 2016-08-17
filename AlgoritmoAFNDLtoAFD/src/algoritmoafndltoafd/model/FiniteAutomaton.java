@@ -23,7 +23,7 @@ public abstract class FiniteAutomaton {
 
     }
 
-    public FiniteAutomaton(ArrayList<State> states, ArrayList<String> inputAlphabet, ArrayList<Transition> transitions) {
+    public FiniteAutomaton(ArrayList<State> states, ArrayList<String> inputAlphabet) {
         this.states = states;
         this.inputAlphabet = inputAlphabet;
     }
@@ -85,6 +85,14 @@ public abstract class FiniteAutomaton {
 
     public List<State> getStates() {
         return states;
+    }
+    public State getState(String stateString){
+        for (State state : states) {
+            if(state.getName().equals(stateString)){
+                return state;
+            }
+        }
+        return null;
     }
 
     /**

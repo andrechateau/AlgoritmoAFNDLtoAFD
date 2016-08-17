@@ -26,7 +26,7 @@ public class AFNDTransition extends Transition{
     
     }
     
-    public void addState(State state){
+    public void addTargetState(State state){
         targetStates.add(state);
     }
     

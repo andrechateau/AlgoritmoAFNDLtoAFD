@@ -73,7 +73,7 @@ public class InputManager {
             automatonFinite.addSymbol(aplha);
         }
         position += 3;
-        catchAllTransition(linearFile,automatonFinite);
+        catchAllTransition(linearFile, automatonFinite);
 
         return afnd;
     }
@@ -107,13 +107,20 @@ public class InputManager {
      * @param linearFile
      * @param automatonFinite
      */
-    public void catchAllTransition(String linearFile,AFND automatonFinite) {
+    public void catchAllTransition(String linearFile, AFND automatonFinite) {
         while (linearFile.indexOf("}", position) != position) {
             AFNDTransition transition = new AFNDTransition();
-            ArrayList<String> origem = catchBetweenSymbol(linearFile, ")");
+            ArrayList<String> origens = catchBetweenSymbol(linearFile, ")");
             position += 3;
-            ArrayList<String> destino = catchBetweenSymbol(linearFile, "}");
-//            transition.addState();
+            ArrayList<String> destinos = catchBetweenSymbol(linearFile, "}");
+            
+            for (String destino : destinos) {
+                transition.addTargetState(automatonFinite.getState(destino));
+            }
+            transition.setOriginState(automatonFinite.getState(origens.get(0)));
+            transition.setSybol(origens.get(1));
+            automatonFinite.addTransition(transition);
+            
             if (linearFile.charAt(position + 2) == '(') {
                 position += 2;
             } else if (linearFile.charAt(position + 1) == '}') {
