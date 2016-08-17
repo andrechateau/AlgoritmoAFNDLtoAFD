@@ -7,6 +7,7 @@ package algoritmoafndltoafd;
 
 import algoritmoafndltoafd.model.AFND;
 import algoritmoafndltoafd.persistence.InputManager;
+import algoritmoafndltoafd.persistence.OutputManager;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,13 +23,17 @@ public class AlgoritmoAFNDLtoAFD {
      */
     public static void main(String[] args) {
         InputManager im = new InputManager("entrada.txt");
+        OutputManager om = new OutputManager("saida.txt");
         try {
             AFND auto = im.loadAutomaton();
             auto.generateTable(AFND.Type.TYPE_LAMBDATRANSITION);
             System.out.println(auto.getTable());
+            
+        
+            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AlgoritmoAFNDLtoAFD.class.getName()).log(Level.SEVERE, null, ex);
-        }
+      }
 
     }
 
