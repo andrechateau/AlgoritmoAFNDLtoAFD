@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  */
 public class InputManager {
 
-    private String fileName;
+    private final String fileName;
     private int position;
 
     public InputManager(String fileName) {
@@ -61,7 +61,7 @@ public class InputManager {
         AFND automatonFinite = new AFND();
         position = 1;
 
-        System.out.println(linearFile);
+        
         ArrayList<String> statesString = catchBetweenSymbol(linearFile, "}");
         for (String stateString : statesString) {
             automatonFinite.addState(new State(stateString, false, false));
@@ -79,23 +79,20 @@ public class InputManager {
         automatonFinite.changeStartState(startStateString, true);
         position += 1;
         ArrayList<String> finalStatesString = catchBetweenSymbol(linearFile, "}");
+        
         for (String finalStateString : finalStatesString) {
             automatonFinite.changeFinalState(finalStateString, true);
-        }
-        for (State state : automatonFinite.getStates()) {
-            System.out.println(state);
-        }
-        for(String alph : automatonFinite.getInputAlphabet()){
-            System.out.println(alph);
         }
         return automatonFinite;
     }
 
     /**
      * Catch everything between two symbols and separeted by commas
+     * ps: to call this method the position has to be on inicial symbol
+     * and the symbol has to be the lest of the sequence
      *
      * @param linearFile String that have the symbol
-     * @param symbol
+     * @param symbol the lest symbol to be catched
      * @return ArrayList with the objects found between the symbols
      */
     public ArrayList<String> catchBetweenSymbol(String linearFile, String symbol) {
@@ -116,9 +113,9 @@ public class InputManager {
     }
 
     /**
-     *
-     * @param linearFile
-     * @param automatonFinite
+     * Put on a AFND the list of transitions existent in file
+     * @param linearFile the linear string of file
+     * @param automatonFinite the automaton to be chenged
      */
     public void catchAllTransition(String linearFile, AFND automatonFinite) {
         while (linearFile.indexOf("}", position) != position) {
