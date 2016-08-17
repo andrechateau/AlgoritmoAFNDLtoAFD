@@ -129,6 +129,7 @@ public class InputManager {
                 transition.addTargetState(automatonFinite.getState(destino));
             }
             transition.setOriginState(automatonFinite.getState(origens.get(0)));
+            automatonFinite.getState(origens.get(0)).addTransition(transition);
             transition.setSybol(origens.get(1));
             automatonFinite.addTransition(transition);
 

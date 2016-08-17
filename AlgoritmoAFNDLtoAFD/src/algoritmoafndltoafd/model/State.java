@@ -35,8 +35,9 @@ public class State implements Comparable<State> {
         this.name = name;
         this.isFinalState = isFinalState;
         this.isStartState = isStartState;
+        this.transitions = new ArrayList<>();
     }
-
+    
     /**
      * @return the name
      */
@@ -119,7 +120,11 @@ public class State implements Comparable<State> {
         }
         return closureString;
     }
-
+    
+    public void addTransition(Transition transition){
+        transitions.add(transition);
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -144,11 +149,17 @@ public class State implements Comparable<State> {
 
     @Override
     public String toString() {
+        String transitionString = "";
+        for (Transition transition : transitions) {
+            transitionString += transition.toString()+"\n";
+        }
         return "Nome: " + getName()+"\n"+
                 "É final: " + (isFinalState? "Sim":"Não")+"\n"+
-                "É inicial: " + (isStartState? "Sim":"Não")+"\n";
+                "É inicial: " + (isStartState? "Sim":"Não")+"\n"+
+                "Transições: \n"+
+                transitionString;
                 
                 
     }
-
+    
 }
