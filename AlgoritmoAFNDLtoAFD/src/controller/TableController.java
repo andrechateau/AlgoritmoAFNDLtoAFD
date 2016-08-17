@@ -41,11 +41,33 @@ public final class TableController {
     }
 
     public static DeltaTable getNDTable(AFND afnd) {
-        throw new RuntimeException("TODO");
+        NDTable d = new NDTable();
+        d.addState(getStringClosure(afnd.getStates()));
+        d.addSymbols(afnd.getInputAlphabet());
+        for (State state : afnd.getStates()) {
+            for (String symbol : afnd.getInputAlphabet()) {
+                List<String> l = state.getStringClosure(symbol);
+                d.addTransition(state.getName(), symbol, l);
+            }
+        }
+
+        return d;
     }
 
     public static DeltaTable getNDLTable(AFND aflambda) {
-        throw new RuntimeException("TODO");
+        NDLTable d = new NDLTable();
+        d.addState(getStringClosure(aflambda.getStates()));
+        d.addSymbols(aflambda.getInputAlphabet());
+        for (State state : aflambda.getStates()) {
+            for (String symbol : aflambda.getInputAlphabet()) {
+                List<String> l = getClosureWhithoutLambda(aflambda);
+                d.addTransition(state.getName(), symbol, l);
+            }
+        }
+        for (State state : aflambda.getStates()) {
+            d.addLambdaClosure(state.getName(), state.getLambdaClosure());
+        }
+        return d;
     }
 
     private static List<String> getStringClosure(List<State> states) {
@@ -55,5 +77,12 @@ public final class TableController {
         }
         Collections.sort(list);
         return list;
+    }
+
+    /* private static List<String> getLambdaClosure(AFND afnd) {
+        throw new RuntimeException();
+    }*/
+    private static List<String> getClosureWhithoutLambda(AFND afnd) {
+        throw new RuntimeException();
     }
 }
