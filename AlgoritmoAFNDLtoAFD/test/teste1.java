@@ -42,11 +42,13 @@ public class teste1 {
         strings.add("q1");
         strings.add("q6");
         strings.add("q0");
-        Set<String> closure = new TreeSet<>();
+
+        List<String> list = new ArrayList<String>();
         for (String string : strings) {
-            closure.add(string);
+            list.add(string);
         }
-        for (String string : closure) {
+        Collections.sort(list);
+        for (String string : list) {
             System.out.println(string);
         }
     }
