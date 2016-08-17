@@ -31,13 +31,18 @@ public class AlgoritmoAFNDLtoAFD {
         try {
             AFND auto = im.loadAutomaton();
             auto.generateTable(AFND.Type.TYPE_LAMBDATRANSITION);
+            om.saveAFNDLambda((NDLTable)auto.getTable());
             System.out.println(auto.getTable());
+
             /////
             NDTable tb = TableController.removeL((NDLTable) auto.getTable());
+            om.saveAFND(tb);
             System.out.println(tb);
             ///
             DTable d = TableController.convertToAFD(tb);
+            om.saveAFD(d);
             System.out.println(d);
+            om.saveFile();
             //tb.addState(auto.getStates());
 
         } catch (FileNotFoundException ex) {

@@ -8,11 +8,14 @@ package algoritmoafndltoafd.persistence;
  *
  * @author Roberto Gonçalves
  */
+import algoritmoafndltoafd.AlgoritmoAFNDLtoAFD;
 import algoritmoafndltoafd.model.interfaces.DeltaDTable;
 import algoritmoafndltoafd.model.interfaces.DeltaNDLTable;
 import algoritmoafndltoafd.model.interfaces.DeltaNDTable;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class OutputManager {
     static String answer = "";
@@ -24,83 +27,54 @@ public class OutputManager {
         List<String> symbols = table.getSymbols();
         List<String> states = table.getStates();
         String r = "";
-        r += "==============================================\n";
-        System.out.print("AFND-L\n");
-        int closureSize = 0;
-        for (String state : states) {
-            for (String symbol : symbols) {
-                if(table.getClosure(state, symbol)!=null){
-                    if(table.getClosure(state, symbol).size() > closureSize){
-                        closureSize = table.getClosure(state, symbol).toString().length();
-                    }
-                }
-            }
-        }
-        closureSize += 5;
-        r+="\t";
+        r += "==========================================================================================\n";
+        ///HEAD
+        r += "\t";
         for (String symbol : symbols) {
-            r += String.format("%s %"+(closureSize-1)+"s",symbol,"");
+            r += String.format("%-25s", symbol);
         }
-        r += "lambda\n";
-        int closureMin = 0;
+
+        r += String.format("%s", "lambda\n");
+
         /// LINHA
         for (String state : states) {
             r += state + "\t";
             for (String symbol : symbols) {
-                if(table.getClosure(state, symbol)!=null){
-                    closureMin = table.getClosure(state, symbol).toString().length();
-                }else{
-                    closureMin = 0;
-                }
-                r += String.format("%s %"+(closureSize-closureMin)+"s",getConjunto(table.getClosure(state, symbol)),"");
+                r += String.format("%-18s", getConjunto(table.getClosure(state, symbol)))+"\t";
+                //r += (getClosure(state, symbol)!=null ? getClosure(state, symbol).toString() : "") + "\t";
             }
-            r += getConjunto(table.getLClosure(state));
+             r += getConjunto(table.getLClosure(state));
             r += "\n";
         }
-        r += "==============================================\n";
+        r += "==========================================================================================\n";
 
-        System.out.print(r);
+
+        //System.out.print(r);
         answer += r;
     }
     public void saveAFND(DeltaNDTable table){
         List<String> symbols = table.getSymbols();
         List<String> states = table.getStates();
         String r = "";
-        r += "==============================================\n";
-        System.out.print("AFND\n");
-        int closureSize = 0;
-        for (String state : states) {
-            for (String symbol : symbols) {
-                if(table.getClosure(state, symbol)!=null){
-                    if(table.getClosure(state, symbol).toString().length() > closureSize){
-                        closureSize = table.getClosure(state, symbol).toString().length();
-                    }
-                }
-            }
-        }
-        closureSize += 5;
-        r+="\t";
+        r += "==========================================================================================\n";
+        ///HEAD
+        r += "\t";
         for (String symbol : symbols) {
-            r += String.format("%s %"+(closureSize-1)+"s",symbol,"");
+            r += String.format("%-25s", symbol);
         }
-        int closureMin = 0;
+        r += String.format("%s", "\n");
         /// LINHA
-        r+="\n";
         for (String state : states) {
             r += state + "\t";
             for (String symbol : symbols) {
-                if(table.getClosure(state, symbol)!=null){
-                    closureMin = table.getClosure(state, symbol).toString().length();
-                }else{
-                    closureMin = 0;
-                }
-                r += String.format("%s %"+(closureSize-closureMin)+"s",getConjunto(table.getClosure(state, symbol)),"");
+                r += String.format("%-18s", getConjunto(table.getClosure(state, symbol))) + "\t";
+                //r += (getClosure(state, symbol)!=null ? getClosure(state, symbol).toString() : "") + "\t";
             }
             r += "\n";
         }
-        r += "==============================================\n";
+        r += "==========================================================================================\n";
 
-        System.out.print(r);
+        //System.out.print(r);
         answer += r;
     }
     
@@ -108,41 +82,31 @@ public class OutputManager {
         List<String> symbols = table.getSymbols();
         List<String> states = table.getStates();
         String r = "";
-        r += "==============================================\n";
-        System.out.print("AFD\n");
-        int closureSize = 0;
-        for (String state : states) {
-            for (String symbol : symbols) {
-                if(table.getClosure(state, symbol)!=null){
-                    if(table.getClosure(state, symbol).length() > closureSize){
-                        closureSize = table.getClosure(state, symbol).length();
-                    }
-                }
-            }
-        }
-        closureSize += 5;
-        r+="\t";
+        r += "==========================================================================================\n";
+        ///HEAD
+        r += "\t";
+        r += String.format("%-18s", "");
         for (String symbol : symbols) {
-            r += String.format("%s %"+(closureSize-1)+"s",symbol,"");
+            r += String.format("%-25s", symbol);
         }
-        int closureMin = 0;
+        r += String.format("%s", "\n");
         /// LINHA
-        r+="\n";
         for (String state : states) {
-            r += state + "\t";
+            r += String.format("%-18s", state) + "\t";
             for (String symbol : symbols) {
-                if(table.getClosure(state, symbol)!=null){
-                    closureMin = table.getClosure(state, symbol).toString().length();
-                }else{
-                    closureMin = 0;
-                }
-                r += String.format("%s %"+(closureSize-closureMin)+"s",table.getClosure(state, symbol),"");
+                //r += String.format("%-18s", getClosure(state, symbol)) + "\t";
+               /* if (table != null) {
+                    r += String.format("%-18s", getEstado(table.getList(state, symbol))) + "\t";
+                }*/
+                r += String.format("%-18s", table.getClosure(state, symbol)) + "\t";
+
+                //r += (getClosure(state, symbol)!=null ? getClosure(state, symbol).toString() : "") + "\t";
             }
             r += "\n";
         }
-        r += "==============================================\n";
+        r += "==========================================================================================\n";
 
-        System.out.print(r);
+        //System.out.print(r);
         answer += r;
     }
     private String getConjunto(List<String> strings) {
@@ -162,12 +126,12 @@ public class OutputManager {
     }
     public void saveFile(){
         try{
-            PrintWriter out = new PrintWriter(this.file,"UTF-8");
-            out.println(answer);
-            out.close();
+            try (PrintWriter out = new PrintWriter(this.file,"UTF-8")) {
+                out.println(answer);
+            }
         }
         catch(Exception ex){
-            
+             Logger.getLogger("Não foi possível gerar o arquivo: "+ex);
         }
         
     }
