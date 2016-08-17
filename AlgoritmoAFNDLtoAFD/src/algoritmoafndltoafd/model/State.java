@@ -6,8 +6,11 @@
 package algoritmoafndltoafd.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  *
@@ -61,7 +64,7 @@ public class State implements Comparable<State> {
     }
 
     public Set<State> getClosure(String symbol) {
-        Set<State> closure = new HashSet<>();
+        Set<State> closure = new TreeSet<>();
         for (Transition transition : transitions) {
             if (transition instanceof AFNDTransition) {
                 AFNDTransition t = (AFNDTransition) transition;
@@ -71,7 +74,7 @@ public class State implements Comparable<State> {
                 closure.add(t.getTargetState());
             }
         }
-        return null;
+        return closure;
     }
 
     @Override

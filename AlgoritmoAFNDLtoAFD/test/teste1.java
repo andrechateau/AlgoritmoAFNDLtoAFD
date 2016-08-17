@@ -1,7 +1,13 @@
 
-import java.util.HashMap;
-import java.util.LinkedList;
+import algoritmoafndltoafd.model.AFDTransition;
+import algoritmoafndltoafd.model.AFNDTransition;
+import algoritmoafndltoafd.model.State;
+import algoritmoafndltoafd.model.Transition;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -29,15 +35,19 @@ public class teste1 {
     }
 
     public static void main(String[] args) {
-        HashMap<Integer, List<teste1>> map = new HashMap<>();
-        //map.put(0, new teste1("Joao"));
-        System.out.println(map.size());
-        if (!map.containsKey(0)) {
-            map.put(0, new LinkedList<teste1>());
+        List<String> strings = new ArrayList<String>();
+        strings.add("q3");
+        strings.add("q2");
+        strings.add("q4");
+        strings.add("q1");
+        strings.add("q6");
+        strings.add("q0");
+        Set<String> closure = new TreeSet<>();
+        for (String string : strings) {
+            closure.add(string);
         }
-        map.get(0).add(new teste1("Joao"));
-        map.get(0).add(new teste1("Maria"));
-
-        System.out.println(map.get(0).size());
+        for (String string : closure) {
+            System.out.println(string);
+        }
     }
 }
