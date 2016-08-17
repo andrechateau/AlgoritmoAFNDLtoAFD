@@ -25,7 +25,7 @@ public class AlgoritmoAFNDLtoAFD {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        InputManager im = new InputManager("entrada.txt");
+        InputManager im = new InputManager(args[0]);
         try {
             AFND auto = im.loadAutomaton();
             auto.generateTable(AFND.Type.TYPE_LAMBDATRANSITION);

@@ -47,6 +47,7 @@ public class InputManager {
         } catch (IOException ex) {
             Logger.getLogger(InputManager.class.getName()).log(Level.SEVERE, null, ex);
         }
+        linearArchive = linearArchive.trim();
         return linearArchive;
     }
 
