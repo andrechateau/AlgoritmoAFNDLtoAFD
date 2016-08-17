@@ -43,8 +43,6 @@ public class NDLTable extends NDTable implements DeltaNDLTable {
     @Override
     public String toString() {
         String r = "";
-        r += "Simbolos iniciais: " + getSymbols().toString() + "\n";
-        r += "Estados: " + getStates().toString() + "\n";
         r += "==========================================================================================\n";
         List<String> states = getStates();
         ///HEAD
@@ -71,20 +69,6 @@ public class NDLTable extends NDTable implements DeltaNDLTable {
         return r;
     }
 
-    private String getConjunto(List<String> strings) {
 
-        String r = "{";
-        if (strings != null) {
-            for (String string : strings) {
-                r += string + ",";
-            }
-            if (strings.size() >= 1) {
-                r = r.substring(0, r.length() - 1);
-            }
-
-        }
-        r += "}";
-        return r;
-    }
 
 }

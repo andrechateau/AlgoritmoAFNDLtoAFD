@@ -8,11 +8,12 @@ package controller;
 import algoritmoafndltoafd.model.AFD;
 import algoritmoafndltoafd.model.AFND;
 import algoritmoafndltoafd.model.State;
-import algoritmoafndltoafd.model.interfaces.DeltaDTable;
 import algoritmoafndltoafd.model.interfaces.DeltaTable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  *
@@ -52,8 +53,34 @@ public final class TableController {
                 d.addTransition(state.getName(), symbol, l);
             }
         }
-
         return d;
+    }
+
+    public static NDTable removeL(NDLTable tbin) {
+
+        NDTable d = new NDTable();
+        d.addState(tbin.getStates());
+        d.addSymbols(tbin.getSymbols());
+        for (String state : tbin.getStates()) {
+            for (String symbol : tbin.getSymbols()) {
+                List<String> l = getConversionClosure(tbin, state, symbol);
+                d.addTransition(state, symbol, l);
+            }
+        }
+        return d;
+    }
+
+    private static List<String> getConversionClosure(NDLTable tbin, String state, String symbol) {
+        Set<String> set = new TreeSet<>();
+        List<String> preLambda = tbin.getLClosure(state);
+        for (String string : preLambda) {
+            set.addAll(tbin.getClosure(string, symbol));
+            for (String string1 : tbin.getClosure(string, symbol)) {
+                set.addAll(tbin.getLClosure(string1));
+            }
+
+        }
+        return new ArrayList<String>(set);
     }
 
     public static DeltaTable getNDLTable(AFND aflambda) {
@@ -85,17 +112,4 @@ public final class TableController {
         return list;
     }
 
-    /* private static List<String> getLambdaClosure(AFND afnd) {
-        throw new RuntimeException();
-    }*/
- /*private static List<String> getClosureWhithoutLambda(AFND afnd) {
-        List<String> list = new ArrayList<String>();
-        for (State state : afnd.getStates()) {
-            if (state) {
-                list.add(string);
-            }
-        }
-        Collections.sort(list);
-        return list;
-    }*/
 }
