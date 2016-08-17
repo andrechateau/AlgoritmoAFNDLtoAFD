@@ -5,8 +5,6 @@
  */
 package algoritmoafndltoafd.model;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author Otavio
@@ -15,7 +13,13 @@ public abstract class Transition {
 
     private State originState;
     private String symbol;
-
+    
+    public void setOriginState(State originState){
+        this.originState = originState;
+    }
+    public void setSybol(String symbol){
+        this.symbol = symbol;
+    }
     /**
      * @return the originState
      */
@@ -29,4 +33,5 @@ public abstract class Transition {
     public String getSymbol() {
         return symbol;
     }
+    
 }
