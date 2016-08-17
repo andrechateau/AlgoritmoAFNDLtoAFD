@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Andre Chateaubriand
  */
-    interface DeltaTable {
+    public interface DeltaTable {
 
     /**
      *
