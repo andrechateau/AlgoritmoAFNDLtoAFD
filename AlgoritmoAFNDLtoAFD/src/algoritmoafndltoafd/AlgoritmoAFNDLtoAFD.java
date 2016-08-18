@@ -39,7 +39,7 @@ public class AlgoritmoAFNDLtoAFD {
             om.saveAFND(tb);
             System.out.println(tb);
             ///
-            DTable d = TableController.convertToAFD(tb);
+            DTable d = TableController.convertToAFD(tb,((NDLTable)auto.getTable()).getLClosure("q0"));
             om.saveAFD(d);
             System.out.println(d);
             om.saveFile();
