@@ -41,7 +41,7 @@ public class InputManager {
             BufferedReader buffRead = new BufferedReader(new FileReader(fileName));
             String temp;
             while ((temp = buffRead.readLine()) != null) {
-                linearArchive += temp;
+                linearArchive += temp.trim();
             }
             buffRead.close();
         } catch (IOException ex) {
