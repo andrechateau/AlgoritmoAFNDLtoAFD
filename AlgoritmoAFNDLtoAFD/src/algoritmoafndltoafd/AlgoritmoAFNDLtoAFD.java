@@ -31,7 +31,7 @@ public class AlgoritmoAFNDLtoAFD {
         try {
             AFND auto = im.loadAutomaton();
             auto.generateTable(AFND.Type.TYPE_LAMBDATRANSITION);
-            om.saveAFNDLambda((NDLTable)auto.getTable());
+            om.saveAFNDLambda((NDLTable) auto.getTable());
             System.out.println(auto.getTable());
 
             /////
@@ -47,7 +47,7 @@ public class AlgoritmoAFNDLtoAFD {
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AlgoritmoAFNDLtoAFD.class.getName()).log(Level.SEVERE, null, ex);
-      }
+        }
 
     }
 

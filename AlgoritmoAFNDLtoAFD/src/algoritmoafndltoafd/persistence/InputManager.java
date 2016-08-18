@@ -41,12 +41,13 @@ public class InputManager {
             BufferedReader buffRead = new BufferedReader(new FileReader(fileName));
             String temp;
             while ((temp = buffRead.readLine()) != null) {
-                linearArchive += temp;
+                linearArchive += temp.trim();
             }
             buffRead.close();
         } catch (IOException ex) {
             Logger.getLogger(InputManager.class.getName()).log(Level.SEVERE, null, ex);
         }
+        linearArchive = linearArchive.trim();
         return linearArchive;
     }
 
