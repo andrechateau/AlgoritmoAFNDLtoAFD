@@ -106,7 +106,7 @@ public class State implements Comparable<State> {
         List< String> closureString = new ArrayList<String>();
         for (State state : getLambdaClosureStates()) {
             //if (!state.getName().equals(name)) {
-                closureString.add(state.getName());
+            closureString.add(state.getName());
             //}
         }
         return closureString;
@@ -131,6 +131,24 @@ public class State implements Comparable<State> {
             closureString.add(state.getName());
         }*/
         return closure;
+    }
+
+    public List<String> getLambdaStatesString() {
+        Set<State> closure = new TreeSet<>();
+       // closure.add(this);
+        for (Transition transition : transitions) {
+            if (transition instanceof AFNDTransition) {
+                AFNDTransition t = (AFNDTransition) transition;
+                if (t.getSymbol().equals(".")) {
+                    closure.addAll(t.getTargetStates());
+                }
+            }
+        }
+        List<String> list = new ArrayList<String>();
+        for (State state : closure) {
+            list.add(state.getName());
+        }
+        return list;
     }
 
     public void addTransition(Transition transition) {

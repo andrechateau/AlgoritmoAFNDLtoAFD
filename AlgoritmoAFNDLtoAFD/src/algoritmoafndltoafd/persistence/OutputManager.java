@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package algoritmoafndltoafd.persistence;
+
 /**
  *
  * @author Roberto Gonçalves
@@ -18,12 +19,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class OutputManager {
+
     static String answer = "";
     String file = "";
-    public OutputManager(String txt){
+
+    public OutputManager(String txt) {
         this.file = txt;
     }
-    public void saveAFNDLambda(DeltaNDLTable table){
+
+    public void saveAFNDLambda(DeltaNDLTable table) {
         List<String> symbols = table.getSymbols();
         List<String> states = table.getStates();
         String r = "";
@@ -34,25 +38,28 @@ public class OutputManager {
             r += String.format("%-25s", symbol);
         }
 
-        r += String.format("%s", "lambda\n");
-
+        // r += String.format("%s", "lambda\n");
+        r += String.format("%-25s", "lambda");
+        r += String.format("%s", "fecho-L\n");
         /// LINHA
         for (String state : states) {
             r += state + "\t";
             for (String symbol : symbols) {
-                r += String.format("%-18s", getConjunto(table.getClosure(state, symbol)))+"\t";
+                r += String.format("%-18s", getConjunto(table.getClosure(state, symbol))) + "\t";
                 //r += (getClosure(state, symbol)!=null ? getClosure(state, symbol).toString() : "") + "\t";
             }
-             r += getConjunto(table.getLClosure(state));
+            //r += getConjunto(table.getLClosure(state));
+            r += String.format("%-18s",  getConjunto(table.getClosure(state, ".")));
+            r += String.format("%-18s", getConjunto(table.getLClosure(state)));
             r += "\n";
         }
         r += "==========================================================================================\n";
 
-
         //System.out.print(r);
         answer += r;
     }
-    public void saveAFND(DeltaNDTable table){
+
+    public void saveAFND(DeltaNDTable table) {
         List<String> symbols = table.getSymbols();
         List<String> states = table.getStates();
         String r = "";
@@ -77,8 +84,8 @@ public class OutputManager {
         //System.out.print(r);
         answer += r;
     }
-    
-    public void saveAFD(DeltaDTable table){
+
+    public void saveAFD(DeltaDTable table) {
         List<String> symbols = table.getSymbols();
         List<String> states = table.getStates();
         String r = "";
@@ -95,7 +102,7 @@ public class OutputManager {
             r += String.format("%-18s", state) + "\t";
             for (String symbol : symbols) {
                 //r += String.format("%-18s", getClosure(state, symbol)) + "\t";
-               /* if (table != null) {
+                /* if (table != null) {
                     r += String.format("%-18s", getEstado(table.getList(state, symbol))) + "\t";
                 }*/
                 r += String.format("%-18s", table.getClosure(state, symbol)) + "\t";
@@ -109,6 +116,7 @@ public class OutputManager {
         //System.out.print(r);
         answer += r;
     }
+
     private String getConjunto(List<String> strings) {
 
         String r = "{";
@@ -124,15 +132,15 @@ public class OutputManager {
         r += "}";
         return r;
     }
-    public void saveFile(){
-        try{
-            try (PrintWriter out = new PrintWriter(this.file,"UTF-8")) {
+
+    public void saveFile() {
+        try {
+            try (PrintWriter out = new PrintWriter(this.file, "UTF-8")) {
                 out.println(answer);
             }
+        } catch (Exception ex) {
+            Logger.getLogger("Não foi possível gerar o arquivo: " + ex);
         }
-        catch(Exception ex){
-             Logger.getLogger("Não foi possível gerar o arquivo: "+ex);
-        }
-        
+
     }
 }

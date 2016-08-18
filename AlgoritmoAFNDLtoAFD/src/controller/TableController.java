@@ -84,17 +84,24 @@ public final class TableController {
     }
 
     public static DeltaTable getNDLTable(AFND aflambda) {
-        System.out.println("Lambda");
+        //System.out.println("Lambda");
         NDLTable d = new NDLTable();
         d.addState(getStringClosure(aflambda.getStates()));
         d.addSymbols(aflambda.getInputAlphabet());
+        //System.out.println("JOAO " + aflambda.getInputAlphabet());
         for (State state : aflambda.getStates()) {
             for (String symbol : aflambda.getInputAlphabet()) {
-                if (!symbol.equals(".")) {
-                    List<String> l = state.getStringClosure(symbol);
-                    d.addTransition(state.getName(), symbol, l);
-                }
+//                if (symbol.equals(".")) {
+//                }
+                List<String> l = state.getStringClosure(symbol);
+                d.addTransition(state.getName(), symbol, l);
+                //}
             }
+            List<String> lista = state.getLambdaStatesString();
+            //System.out.println("->" + lista);
+            d.addTransition(state.getName(), ".", lista);
+//            List<String> l = state.getStringClosure(".");
+//            d.addTransition(state.getName(), ".", l);
         }
 
         for (State state : aflambda.getStates()) {

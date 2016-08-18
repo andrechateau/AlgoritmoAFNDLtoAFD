@@ -51,16 +51,19 @@ public class NDLTable extends NDTable implements DeltaNDLTable {
             r += String.format("%-25s", symbol);
         }
 
-        r += String.format("%s", "lambda\n");
+        r += String.format("%-25s", "lambda");
+        r += String.format("%s", "fecho-L\n");
 
         /// LINHA
         for (String state : states) {
             r += state + "\t";
             for (String symbol : getSymbols()) {
-                r += String.format("%-18s", getConjunto(getClosure(state, symbol)))+"\t";
+                r += String.format("%-18s", getConjunto(getClosure(state, symbol))) + "\t";
                 //r += (getClosure(state, symbol)!=null ? getClosure(state, symbol).toString() : "") + "\t";
             }
-             r += getConjunto(getLClosure(state));
+            r += String.format("%-18s", getConjunto(getClosure(state, ".")));
+            r += String.format("%-18s", getConjunto(getLClosure(state)));
+            //r += getConjunto();
             r += "\n";
         }
         r += "==========================================================================================\n";
@@ -68,7 +71,5 @@ public class NDLTable extends NDTable implements DeltaNDLTable {
         ////
         return r;
     }
-
-
 
 }

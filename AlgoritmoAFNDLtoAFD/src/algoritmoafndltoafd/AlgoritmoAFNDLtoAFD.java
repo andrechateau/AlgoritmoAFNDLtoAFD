@@ -26,8 +26,16 @@ public class AlgoritmoAFNDLtoAFD {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        InputManager im = new InputManager("entrada.txt");
-        OutputManager om = new OutputManager("saida.txt");
+        //InputManager im = new InputManager("entrada.txt");
+        InputManager im;
+        OutputManager om;
+        if (args.length < 2) {
+            im = new InputManager("descricao.txt");
+            om = new OutputManager("saida.txt");
+        } else {
+            im = new InputManager(args[0]);
+            om = new OutputManager(args[1]);
+        }
         try {
             AFND auto = im.loadAutomaton();
             auto.generateTable(AFND.Type.TYPE_LAMBDATRANSITION);
@@ -39,7 +47,7 @@ public class AlgoritmoAFNDLtoAFD {
             om.saveAFND(tb);
             System.out.println(tb);
             ///
-            DTable d = TableController.convertToAFD(tb,((NDLTable)auto.getTable()).getLClosure("q0"));
+            DTable d = TableController.convertToAFD(tb, ((NDLTable) auto.getTable()).getLClosure("q0"));
             om.saveAFD(d);
             System.out.println(d);
             om.saveFile();
