@@ -31,7 +31,7 @@ public class OutputManager {
         List<String> symbols = table.getSymbols();
         List<String> states = table.getStates();
         String r = "";
-        r += "==========================================================================================\n";
+        r += "==========================================================================================" + System.lineSeparator();
         ///HEAD
         r += "\t";
         for (String symbol : symbols) {
@@ -40,7 +40,9 @@ public class OutputManager {
 
         // r += String.format("%s", "lambda\n");
         r += String.format("%-25s", "lambda");
-        r += String.format("%s", "fecho-L\n");
+        //r += String.format("%s", "fecho-L\n");
+        r += String.format("%s", "fecho-L" + System.lineSeparator());
+        //r += System.lineSeparator();
         /// LINHA
         for (String state : states) {
             r += state + "\t";
@@ -49,27 +51,30 @@ public class OutputManager {
                 //r += (getClosure(state, symbol)!=null ? getClosure(state, symbol).toString() : "") + "\t";
             }
             //r += getConjunto(table.getLClosure(state));
-            r += String.format("%-18s",  getConjunto(table.getClosure(state, ".")));
+            r += String.format("%-18s", getConjunto(table.getClosure(state, ".")));
             r += String.format("%-18s", getConjunto(table.getLClosure(state)));
-            r += "\n";
+            // r += "\n"
+            r += System.lineSeparator();
         }
-        r += "==========================================================================================\n";
+        r += "==========================================================================================" + System.lineSeparator();
 
         //System.out.print(r);
         answer += r;
+
     }
 
     public void saveAFND(DeltaNDTable table) {
         List<String> symbols = table.getSymbols();
         List<String> states = table.getStates();
         String r = "";
-        r += "==========================================================================================\n";
+        r += "==========================================================================================" + System.lineSeparator();
         ///HEAD
         r += "\t";
         for (String symbol : symbols) {
             r += String.format("%-25s", symbol);
         }
-        r += String.format("%s", "\n");
+        //r += String.format("%s", "\n");
+        r += String.format("%s", System.lineSeparator());
         /// LINHA
         for (String state : states) {
             r += state + "\t";
@@ -77,9 +82,10 @@ public class OutputManager {
                 r += String.format("%-18s", getConjunto(table.getClosure(state, symbol))) + "\t";
                 //r += (getClosure(state, symbol)!=null ? getClosure(state, symbol).toString() : "") + "\t";
             }
-            r += "\n";
+            r += System.lineSeparator();
+            //r += "\n";
         }
-        r += "==========================================================================================\n";
+        r += "==========================================================================================" + System.lineSeparator();
 
         //System.out.print(r);
         answer += r;
@@ -89,14 +95,15 @@ public class OutputManager {
         List<String> symbols = table.getSymbols();
         List<String> states = table.getStates();
         String r = "";
-        r += "==========================================================================================\n";
+        r += "==========================================================================================" + System.lineSeparator();;
         ///HEAD
         r += "\t";
         r += String.format("%-18s", "");
         for (String symbol : symbols) {
             r += String.format("%-25s", symbol);
         }
-        r += String.format("%s", "\n");
+        //r += String.format("%s", "\n");
+        r += String.format("%s", System.lineSeparator());
         /// LINHA
         for (String state : states) {
             r += String.format("%-18s", state) + "\t";
@@ -109,7 +116,8 @@ public class OutputManager {
 
                 //r += (getClosure(state, symbol)!=null ? getClosure(state, symbol).toString() : "") + "\t";
             }
-            r += "\n";
+            //r += "\n";
+            r += System.lineSeparator();
         }
         r += "==========================================================================================\n";
 
